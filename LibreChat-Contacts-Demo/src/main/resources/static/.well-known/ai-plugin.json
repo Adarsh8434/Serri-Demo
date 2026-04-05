@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Contacts Workspace",
+  "name_for_model": "contacts_workspace",
+  "description_for_human": "Search and retrieve contacts stored in the workspace.",
+  "description_for_model": "Use this tool to search contacts whenever the user asks about people, companies, colleagues, or contacts. Always use this tool before answering contact-related questions. The tool returns name, email, company, role, city, state and other attributes of matching contacts.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:8080/.well-known/openapi.yaml"
+  },
+  "logo_url": "http://localhost:8080/logo.png",
+  "contact_email": "rohitadarsh02@gmail.com",
+  "legal_info_url": "http://localhost:8080"
+}

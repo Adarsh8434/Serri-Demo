@@ -1,0 +1,44 @@
+openapi: 3.0.1
+info:
+  title: Contacts Workspace API
+  description: Search contacts for the AI assistant
+  version: 1.0.0
+servers:
+  - url:  http://10.79.60.14:8080
+paths:
+  /api/contacts/search-simple:
+    get:
+      operationId: searchContacts
+      summary: Search contacts by keyword
+      description: >
+        Search contacts by name, company, city, state, role or email.
+        Use this whenever the user asks about people, contacts, or companies.
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: Search keyword e.g. Jaipur, CTO, Acme Corp
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of matching contacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fullName:
+                      type: string
+                    email:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    company:
+                      type: string
+                    role:
+                      type: string
