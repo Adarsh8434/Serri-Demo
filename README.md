@@ -189,6 +189,11 @@ Ask questions about contacts:
 | POST | `/librechat/chat/completions` | LibreChat chat endpoint |
 
 ---
+## Outputs of the project
+<img width="1904" height="940" alt="image" src="https://github.com/user-attachments/assets/0290022f-4cdd-4f1c-b64a-eb2aeedea3e1" />
+<img width="1302" height="626" alt="image" src="https://github.com/user-attachments/assets/462fcd3a-aba6-4a0d-bd9e-75a669e5231e" />
+<img width="1919" height="923" alt="image" src="https://github.com/user-attachments/assets/f19159c3-acda-4964-9c84-c6b1fef3f949" />
+
 
 ## Design Questions
 
