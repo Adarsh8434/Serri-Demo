@@ -30,13 +30,8 @@ public class ContactResponseDTO {
     private String applicationStatus;
     private LocalDateTime createdAt;
 
-    /**
-     * All arbitrary attributes flattened into a simple map.
-     * Example: { "industry": "AI", "location": "Bangalore" }
-     */
+  
     private Map<String, String> attributes;
-
-    // Static factory — converts entity → DTO
     public static ContactResponseDTO from(Contact contact) {
         ContactResponseDTO dto = new ContactResponseDTO();
         dto.setId(contact.getId());
@@ -56,13 +51,12 @@ public class ContactResponseDTO {
         dto.setApplicationStatus(contact.getApplicationStatus());
         dto.setCreatedAt(contact.getCreatedAt());
 
-        // Flatten ContactAttribute list → Map<String, String>
         dto.setAttributes(
             contact.getAttributes().stream()
                 .collect(Collectors.toMap(
                     ContactAttribute::getKey,
                     ContactAttribute::getValue,
-                    (a, b) -> b  // keep last if duplicate keys
+                    (a, b) -> b  
                 ))
         );
         return dto;

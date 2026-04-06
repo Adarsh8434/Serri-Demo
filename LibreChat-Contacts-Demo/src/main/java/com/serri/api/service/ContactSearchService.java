@@ -22,19 +22,14 @@ public class ContactSearchService {
 
     private static final int MAX_CONTEXT_CONTACTS = 20;
 
-    /**
-     * Given a user's natural language query, return
-     * a small set of relevant contacts for context injection.
-     */
+   
     public List<Contact> findRelevantContacts(String userQuery) {
 
-    // 1. Normalize
     String normalized = userQuery
             .toLowerCase()
             .replaceAll("[^a-z0-9 ]", " ")
             .trim();
 
-    // 2. Remove stopwords
     Set<String> stopWords = Set.of(
             "who","is","are","the","from","what","do","we","know",
             "about","list","all","in","our","show","me"
@@ -44,7 +39,6 @@ public class ContactSearchService {
             .filter(word -> !stopWords.contains(word))
             .toList();
 
-    // 3. Search using keywords
     List<Contact> results = keywords.stream()
             .flatMap(k -> contactRepository
                     .searchContacts(k, PageRequest.of(0, MAX_CONTEXT_CONTACTS))

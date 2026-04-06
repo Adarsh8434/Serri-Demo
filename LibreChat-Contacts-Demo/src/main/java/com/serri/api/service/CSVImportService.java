@@ -64,7 +64,6 @@ public class CSVImportService {
         log.info("Parsed {} contacts, saving in batches of {}...",
             allContacts.size(), BATCH_SIZE);
 
-        // Delegate to SEPARATE bean so @Transactional proxy fires correctly
         int saved = 0;
         for (int i = 0; i < allContacts.size(); i += BATCH_SIZE) {
             int end = Math.min(i + BATCH_SIZE, allContacts.size());
