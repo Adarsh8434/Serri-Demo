@@ -87,7 +87,7 @@ public class LibreChatProxyController {
 
         log.info("User asked: {}", userMessage);
 
-        // 2. Find relevant contacts
+     
         List<Contact> contacts = new ArrayList<>();
         try {
             contacts = contactSearchService.findRelevantContacts(userMessage);
@@ -96,12 +96,11 @@ public class LibreChatProxyController {
         }
         log.info("Contacts found: {}", contacts.size());
 
-        // 3. Build context
         String context = contacts.stream()
             .map(Contact::toContextString)
             .collect(Collectors.joining("\n---\n"));
 
-        // 4. Build prompt
+        
         String fullPrompt = context.isBlank()
             ? "You are a contacts workspace assistant. "
               + "The user asked: \"" + userMessage + "\". "
@@ -124,7 +123,7 @@ private Map<String, Object> buildResponse(String answer) {
         answer = "I could not process your request.";
     }
 
-    // Ensure the message object is clean
+   
     Map<String, Object> messageMap = new LinkedHashMap<>();
     messageMap.put("role", "assistant");
     messageMap.put("content", answer);
@@ -138,10 +137,9 @@ private Map<String, Object> buildResponse(String answer) {
     response.put("id", "chatcmpl-" + UUID.randomUUID());
     response.put("object", "chat.completion");
     response.put("created", System.currentTimeMillis() / 1000);
-    response.put("model", "contacts-gemini"); // Must match your YAML exactly
-    response.put("choices", Collections.singletonList(choice)); // Use singletonList for safety
+    response.put("model", "contacts-gemini"); 
+    response.put("choices", Collections.singletonList(choice)); 
     
-    // Usage is mandatory for some UI versions
     Map<String, Object> usage = new HashMap<>();
     usage.put("prompt_tokens", 10);
     usage.put("completion_tokens", 10);
@@ -204,8 +202,7 @@ private Map<String, Object> buildResponse(String answer) {
 public ResponseEntity<Map<String, Object>> debug(
         @RequestBody Map<String, Object> request) {
     log.info("FULL REQUEST: {}", request);
-    
-    // Return exact minimal response
+
     Map<String, Object> msg = new LinkedHashMap<>();
     msg.put("role", "assistant");
     msg.put("content", "test response");
@@ -231,11 +228,9 @@ public ResponseEntity<StreamingResponseBody> chat1(
 
     log.info("FULL REQUEST: {}", request);
 
-    // 1. Extract user message
     String userMessage = extractUserMessage(request);
     log.info("User asked: {}", userMessage);
 
-    // 2. Find contacts
     List<Contact> contacts = new ArrayList<>();
     try {
         contacts = contactSearchService.findRelevantContacts(userMessage);
@@ -244,7 +239,6 @@ public ResponseEntity<StreamingResponseBody> chat1(
     }
     log.info("Contacts found: {}", contacts.size());
 
-    // 3. Build prompt
     String context = contacts.stream()
         .map(Contact::toContextString)
         .collect(Collectors.joining("\n---\n"));
@@ -267,10 +261,9 @@ public ResponseEntity<StreamingResponseBody> chat1(
     final String chatId = "chatcmpl-" + UUID.randomUUID();
     final long created = System.currentTimeMillis() / 1000;
 
-    // 5. Return SSE stream (LibreChat always expects stream=true format)
     StreamingResponseBody stream = outputStream -> {
         try {
-            // Chunk 1: role
+            
             String chunk1 = "{\"id\":\"" + chatId + "\","
                 + "\"object\":\"chat.completion.chunk\","
                 + "\"created\":" + created + ","
@@ -282,7 +275,7 @@ public ResponseEntity<StreamingResponseBody> chat1(
                 .getBytes(java.nio.charset.StandardCharsets.UTF_8));
             outputStream.flush();
 
-            // Chunk 2: content
+            
             String escapedAnswer = finalAnswer
                 .replace("\\", "\\\\")
                 .replace("\"", "\\\"")
@@ -301,7 +294,7 @@ public ResponseEntity<StreamingResponseBody> chat1(
                 .getBytes(java.nio.charset.StandardCharsets.UTF_8));
             outputStream.flush();
 
-            // Chunk 3: stop
+            
             String chunk3 = "{\"id\":\"" + chatId + "\","
                 + "\"object\":\"chat.completion.chunk\","
                 + "\"created\":" + created + ","

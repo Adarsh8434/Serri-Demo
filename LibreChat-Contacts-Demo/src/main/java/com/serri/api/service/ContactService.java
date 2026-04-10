@@ -46,7 +46,6 @@ public class ContactService {
         c.setApplicationStatus(dto.getApplicationStatus());
         c.setLeadId(dto.getLeadId());
 
-        // Convert Map<String,String> → List<ContactAttribute>
         if (dto.getAttributes() != null) {
             c.getAttributes().clear();
             dto.getAttributes().forEach((key, value) -> {

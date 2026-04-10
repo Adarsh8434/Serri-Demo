@@ -173,30 +173,6 @@ public ResponseEntity<String> openApiSpec() {
         "                      type: string\n";
     return ResponseEntity.ok(yaml);
 }
-//  @GetMapping("/search")
-// @Transactional(readOnly = true)
-// public ResponseEntity<PageContactResponse> search(
-//         @RequestParam String q,
-//         @RequestParam(defaultValue = "10") int size) {
-
-//     if (q == null || q.isBlank()) {
-//         return ResponseEntity.badRequest().build();
-//     }
-
-//     Page<Contact> result = contactRepository
-//         .searchContacts(q.trim(), PageRequest.of(0, size));
-
-//     List<ContactResponseDTO> dtos = result.getContent()
-//         .stream()
-//         .map(ContactResponseDTO::from)
-//         .toList();
-
-//     return ResponseEntity.ok(new PageContactResponse(
-//         dtos, 0,
-//         result.getTotalPages(),
-//         result.getTotalElements()
-//     ));
-// }
 @GetMapping("/context")
 @Transactional(readOnly = true)
 public ResponseEntity<Map<String, String>> getContext(
